@@ -122,7 +122,7 @@ module ActionView
         object = convert_to_model(object)
 
         if (obj = (object.respond_to?(:errors) ? object : instance_variable_get("@#{object}"))) &&
-          (errors = obj.errors[method]).presence
+          (errors = obj.errors.to_hash[method]).presence
           content_tag(options[:html_tag],
             (options[:prepend_text].html_safe << errors.first).safe_concat(options[:append_text]),
             :class => options[:css_class]
